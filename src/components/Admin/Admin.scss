@@ -1,0 +1,45 @@
+.language {
+    .dropdown-toggle::after {
+        display: none !important;
+    }
+}
+
+.admin-container {
+    display: flex;
+
+    .admin-sidebar {
+        .pro-sidebar {
+            height: 100vh !important;
+        }
+    }
+
+    .admin-content {
+        width: 100%;
+
+        .admin-header {
+            height: 40px;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px 0 10px;
+            span{
+                cursor: pointer;
+                font-size: 20px;
+                columns: #666666;
+            }
+            .setting {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+                padding: 0 20px;
+            }
+        }
+
+        .admin-main {
+            height: calc(100vh - 50px);
+            margin-bottom: 10px;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+.side-btn-wrapper {
+    a {
+        text-decoration: none;
+        display: flex;
+        align-items:center;
+        justify-content: center;
+        svg {
+            margin-right: 7px;
+            font-size: 22px;
+            color: white;
+        }
+
+        span {
+            color: white;
+        }
+    }
+}
