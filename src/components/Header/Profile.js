@@ -3,6 +3,10 @@ import Tabs from 'react-bootstrap/Tabs';
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { useNavigate } from 'react-router-dom';
+import MainInfor from './MainInfor';
+import ChangePassword from './ChangePassword';
+// const nagivate = useNavigate();
 const Profile = (props) => {
     const { show, setShow } = props;
     const handleClose = () => {
@@ -27,10 +31,10 @@ const Profile = (props) => {
                         className="mb-3"
                     >
                         <Tab eventKey="home" title="Main infor">
-                            Main Information
+                            <MainInfor/>
                         </Tab>
                         <Tab eventKey="profile" title="Password">
-                            Your Information
+                            <ChangePassword/>
                         </Tab>
                         <Tab eventKey="contact" title="History" >
                             Your Information

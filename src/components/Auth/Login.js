@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { postLogin } from "../../service/apiServices";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { doLogin } from "../../redux/action/userAction"
+import { doChange, doLogin } from "../../redux/action/userAction"
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
 import Language from "../Header/Language";
 const Login = (props) => {
@@ -59,6 +59,7 @@ const Login = (props) => {
                 theme: "light",
             });
             dispatch(doLogin(res));
+            dispatch(doChange(res));
             setIsLoading(false);
             navigate('/');
         }
