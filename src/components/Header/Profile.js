@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import MainInfor from './MainInfor';
 const Profile = (props) => {
     const { show, setShow } = props;
     const handleClose = () => {
@@ -29,10 +28,10 @@ const Profile = (props) => {
                         className="mb-3"
                     >
                         <Tab eventKey="home" title="Main infor">
-                            <MainInfor />
+                            Main Information
                         </Tab>
                         <Tab eventKey="profile" title="Password">
-                            Your Information
+                            <ChangePassword />
                         </Tab>
                         <Tab eventKey="contact" title="History" >
                             Your Information

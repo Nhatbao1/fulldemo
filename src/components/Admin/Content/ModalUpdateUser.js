@@ -21,6 +21,7 @@ const ModalUpdateUser = (props) => {
         // resetUpdateData();
         // tai vi neu click lien tuc vao 1 user -> dataUpdate kh thay doi -> useEffect kh thay doi -> email bi rong -> sau moi lan close thi set lai dataUpdate = ""
     };
+    console.log(dataUpdate.image)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");

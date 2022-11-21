@@ -111,6 +111,12 @@ const getOverview = () =>{
     return axios.get("api/v1/overview");
 
 }
+const postUpdateProfile = (username,image) =>{
+    const data = new FormData();
+    data.append('username', username);
+    data.append('userImage',image)
+    return axios.post('api/v1/profile', data);
+}  
 export {
     postCreateNewUsers, getAllUsers,
     putUpdateUser, deleteUser,
@@ -120,6 +126,7 @@ export {
     postQuiz,GetQuiz,DeleteQuiz,
     UpdateQuiz,postCreateNewQuestionForQuiz,
     postCreateNewAnswerForQuiz,postAssignQuiz,
-    getQuizByQA,postUpsertQA,postLogOut,getOverview
+    getQuizByQA,postUpsertQA,postLogOut,getOverview,
+    postUpdateProfile,
 };
 // dung cap ngoac de export ra nhieu function
