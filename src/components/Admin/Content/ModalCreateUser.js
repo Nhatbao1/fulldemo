@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { postCreateNewUsers } from '../../../service/apiServices';
 // export cai gi import cai do
 const ModalCreateUser = (props) => {
-    const { show, setShow,festListUsersWithPaginate,setCurrentPage } = props;
+    const { show, setShow, festListUsersWithPaginate, setCurrentPage } = props;
     // Modal se tu dong chen xuong duoi cung cua body kh chen vao div root --> de vay thi nen 1 class boc cho modal
     const handleClose = () => {
         setShow(false);
@@ -58,8 +58,8 @@ const ModalCreateUser = (props) => {
             toast.error('Password not required');
             return;
         }
-     
-        let data = await postCreateNewUsers(email,password,username,role,image);
+
+        let data = await postCreateNewUsers(email, password, username, role, image);
         // await -> dung de cho axios goi API goi thanh cong se goi lai res
         // dung moi data vi da customize api tra ve 1 cuc data
         if (data && data.EC === 0) {
@@ -77,8 +77,9 @@ const ModalCreateUser = (props) => {
             handleClose();
             await festListUsersWithPaginate(1);
             setCurrentPage(1);
+
         }
-        if(data && data.EC !== 0){
+        if (data && data.EC !== 0) {
             toast.error(data.EM);
             // tra ve cau thong bao cua backend
         }

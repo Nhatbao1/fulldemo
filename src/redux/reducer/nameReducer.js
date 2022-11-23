@@ -7,7 +7,7 @@ const nameReducer = (state = INITIAL_STATE, action) => {
         case USER_NAME:
             return {
                 ...state,
-                username: action?.payload?.DT?.username
+                username: action?.payload?.DT?.username,
             };
         default: return state;
     }

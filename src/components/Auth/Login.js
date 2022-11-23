@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { postLogin } from "../../service/apiServices";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { doChange, doLogin } from "../../redux/action/userAction"
+import { doChange, doLogin, doPass } from "../../redux/action/userAction"
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
 import Language from "../Header/Language";
 const Login = (props) => {
@@ -60,6 +60,7 @@ const Login = (props) => {
             });
             dispatch(doLogin(res));
             dispatch(doChange(res));
+            dispatch(doPass(password));
             setIsLoading(false);
             navigate('/');
         }
@@ -86,7 +87,7 @@ const Login = (props) => {
             <div className="header">
                 <p>Don't have an account yet?</p>
                 <button className="btn btn-outline-secondary" onClick={() => { navigate('/register') }}>Sign up</button>
-                <Language/>
+                <Language />
             </div>
             <div className="title col-4 mx-auto">
                 NhatBaoIT
