@@ -27,7 +27,6 @@ const HomePage = () => {
                         </button>
                         :
                         <button className="btn_2" onClick={()=>{ navigate("/login") }}>{t('homepage.btn_2')}
-                        {/* xem lai clip 117 */}
                         </button>
                     }
                 </div>

@@ -17,6 +17,9 @@ const DetailQuiz = (props) => {
     const [show, setShow] = useState(false);
     const [totalQ, seTotalQ] = useState("");
     const [correctQ, setCorrectQ] = useState("");
+   const [isSubmitQuiz, setIsSubmitQuiz] = useState(false);
+    const [isShowAnswer, setIsShowAnswer] = useState(false);
+
     // de la 1 mang tai vi data tra ve la 1 mang gom nhieu object
     const [index, setIndex] = useState(0);
     useEffect(() => {
@@ -38,9 +41,10 @@ const DetailQuiz = (props) => {
                             image = item.image;
                         }
                         item.answers.isSelected = false;
-                        answer.push(item.answers)
+                        item.answers.isCorrect = false;
+                        answer.push(item.answers);
                     })
-                    answer=_.orderBy(answer,['id'],['asc']);
+                    answer = _.orderBy(answer, ['id'], ['asc']);
                     // value tra ve 1 mang 3 phan tu
                     // console.log(">>> key", key)
                     // console.log(">>> value", value)
@@ -85,6 +89,27 @@ const DetailQuiz = (props) => {
             setShow(true);
             seTotalQ(res.DT.countTotal);
             setCorrectQ(res.DT.countCorrect);
+            if (res.DT && res.DT.quizData) {
+                let dataQuizClone = _.cloneDeep(dataQuiz);
+                let a = res.DT.quizData;
+                for (let q of a) {
+                    for (let i = 0; i < dataQuizClone.length; i++) {
+                        if (+q.questionId === +dataQuizClone[i].questionId) {
+                            //update answer
+                            let newAnswers = [];
+                            for (let j = 0; j < dataQuizClone[i].answer.length; j++) {
+                                let s = q.systemAnswers.find(item => +item.id === +dataQuizClone[i].answer[j].id)
+                                if (s) {
+                                    dataQuizClone[i].answer[j].isCorrect = true;
+                                }
+                                newAnswers.push(dataQuizClone[i].answer[j]);
+                            }
+                            dataQuizClone[i].answer = newAnswers;
+                        }
+                    }
+                }
+                setDataQuiz(dataQuizClone);
+            }
         } else {
 
         }
@@ -109,9 +134,9 @@ const DetailQuiz = (props) => {
     }
     const handleClickChangeQuiz = (question, index) => {
         setIndex(index);
-        if(refDiv.current){
-            refDiv.current.forEach(item=>{
-                if(item && item.className === "question-a clicked"){
+        if (refDiv.current) {
+            refDiv.current.forEach(item => {
+                if (item && item.className === "question-a clicked") {
                     item.className = "question-a";
                 }
             })
@@ -135,19 +160,24 @@ const DetailQuiz = (props) => {
         }
         return "question-a";
     }
+    const handleShowAnswer = () => {
+        setIsSubmitQuiz(true);
+        setIsShowAnswer(true);
+    }
     return (
         <div className="detail-quiz-container">
             <div className="left-content">
                 <div className="title">
                     Quiz {quizId} : {location?.state?.quizTitle}
                 </div>
-                <div className="q-body">
-                </div>
+                <hr/>
                 <div className="q-content">
                     <Question
                         data={dataQuiz.length > 0 ? dataQuiz[index] : []}
                         index={index}
                         handleCheckBox={handleCheckBox}
+                        isShowAnswer={isShowAnswer}
+                        isSubmitQuiz={isSubmitQuiz}
                     />
                 </div>
                 {index === 0
@@ -155,7 +185,7 @@ const DetailQuiz = (props) => {
                     <div className="btn-quiz">
                         <button className="btn btn-primary" onClick={() => { handleClickPrev() }} disabled >Prev</button>
                         <button className="btn btn-primary" onClick={() => { handleClickNext() }} >Next</button>
-                        <button className="btn btn-warning" onClick={() => { handleClickSubmit() }}>Finish</button>
+                        <button className="btn btn-warning" disabled={isSubmitQuiz} onClick={() => { handleClickSubmit() }}>Finish</button>
                     </div>
                     :
                     (index < +dataQuiz.length - 1
@@ -163,13 +193,13 @@ const DetailQuiz = (props) => {
                         <div className="btn-quiz">
                             <button className="btn btn-primary" onClick={() => { handleClickPrev() }}>Prev</button>
                             <button className="btn btn-primary" onClick={() => { handleClickNext() }} >Next</button>
-                            <button className="btn btn-warning" onClick={() => { handleClickSubmit() }}>Finish</button>
+                            <button className="btn btn-warning" disabled={isSubmitQuiz} onClick={() => { handleClickSubmit() }}>Finish</button>
                         </div>
                         :
                         <div className="btn-quiz">
                             <button className="btn btn-primary" onClick={() => { handleClickPrev() }}>Prev</button>
                             <button className="btn btn-primary" onClick={() => { handleClickNext() }} disabled>Next</button>
-                            <button className="btn btn-warning" onClick={() => { handleClickSubmit() }}>Finish</button>
+                            <button className="btn btn-warning" disabled={isSubmitQuiz} onClick={() => { handleClickSubmit() }}>Finish</button>
                         </div>
                     )
 
@@ -201,6 +231,7 @@ const DetailQuiz = (props) => {
                 setShow={setShow}
                 totalQ={totalQ}
                 correctQ={correctQ}
+                handleShowAnswer={handleShowAnswer}
             />
         </div>
     )

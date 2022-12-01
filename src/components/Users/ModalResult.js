@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 const ModalResult = (props) => {
-    const { show, setShow,totalQ,correctQ} = props
+    const { show, setShow, totalQ, correctQ, isSubmitQuiz } = props;
     const handleClose = () => {
         setShow(false);
     }
@@ -22,7 +22,10 @@ const ModalResult = (props) => {
                     <div>Total Correct answes: <b>{correctQ}</b></div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="secondary" onClick={() => {
+                        handleClose();
+                        props.handleShowAnswer();
+                    }}>
                         Show Result
                     </Button>
                     <Button variant="primary" onClick={handleClose}>

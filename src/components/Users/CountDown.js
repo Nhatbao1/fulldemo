@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 const CountDown = (props) => {
     const { handleClickSubmit } = props;
-    const [count, setCount] = useState(3);
+    const [count, setCount] = useState(500);
     useEffect(() => {
         if (count === 0) {
             onTime();

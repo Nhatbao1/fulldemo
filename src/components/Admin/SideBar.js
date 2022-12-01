@@ -79,7 +79,7 @@ const SideBar = (props) => {
                     >
                         <a href="http://github">
                             <FaGithub />
-                            <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>ViewSource</span>
+                            <span style={{ whiteSpace: 'nowrap', overflow: 'hidden',textOverflow: 'ellips' }}>ViewSource</span>
                         </a>
                     </div>
                 </SidebarFooter>

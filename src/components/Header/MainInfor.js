@@ -17,7 +17,7 @@ const MainInfor = () => {
     let listUser = [];
     useEffect(() => {
         festListUser();
-    }, []);
+    }, [data]);
     const festListUser = async () => {
         let res = await getAllUsers();
         if (res && res.EC === 0) {

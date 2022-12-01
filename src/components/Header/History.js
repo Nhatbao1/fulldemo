@@ -1,25 +1,28 @@
 import { useEffect, useState } from "react";
 import { getHistory } from "../../service/apiServices";
-import ModalHistory from "./ModalHistory";
-
+import moment from 'moment'
 const History = () => {
     const [listHisroty, setListHistory] = useState([]);
-    const [showModalHistory, setShowModalHistory] = useState(false);
-    const [dataHistory, setDataHistory] = useState();
     useEffect(() => {
-        if (dataHistory) {
-            festHistory();
-        }
+        festHistory();
     }, [])
     const festHistory = async () => {
         let res = await getHistory();
         if (res && res.EC === 0) {
-            setListHistory(res.DT.data);
+            let newData = res?.DT?.data?.map(item => {
+                return{
+                    total_correct: item.total_correct,
+                    total_questions: item.total_questions,
+                    name:item?.quizHistory?.name??"",
+                    id:item.id,
+                    date:moment(item.createAt).utc().format('DD/MM/YY hh:mm:ss A'),
+                }
+            })
+            if(newData.length >7){
+                newData = newData.slice(newData.length-7,newData.lengh);
+            }
+            setListHistory(newData);
         }
-    }
-    const handleClickViewHistory = (data) => {
-        setShowModalHistory(true);
-        setDataHistory(data);
     }
     return (
         <>
@@ -27,9 +30,10 @@ const History = () => {
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Quiz Name</th>
+                        <th scope="col">Total Question</th>
+                        <th scope="col">Total Correct</th>
+                        <th scope="col">Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,13 +43,10 @@ const History = () => {
                             return (
                                 <tr key={`table-quiz-${index + 1}`}>
                                     <td>{value.id}</td>
-                                    <td>{value.quizHistory.name}</td>
-                                    <td>{value.quizHistory.description}</td>
-                                    <td style={{ display: "flex", gap: "15px" }}>
-                                        <button
-                                            className="btn btn-warning" onClick={() => handleClickViewHistory(value)}>View
-                                        </button>
-                                    </td>
+                                    <td>{value.name}</td>
+                                    <td>{value.total_questions}</td>
+                                    <td>{value.total_correct}</td>
+                                    <td>{value.date}</td>
                                 </tr>
                             );
                         })
@@ -53,11 +54,6 @@ const History = () => {
 
                     {listHisroty && listHisroty.length === 0 && <tr><td colSpan={4}>Not found Data </td></tr>}
                 </tbody>
-                <ModalHistory
-                    show={showModalHistory}
-                    setShow={setShowModalHistory}
-                    dataHistory={dataHistory}
-                />
             </table>
 
         </>
