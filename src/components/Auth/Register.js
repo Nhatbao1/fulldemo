@@ -31,19 +31,18 @@ const Register = (props) => {
                 progress: undefined,
                 theme: "light",
             });
-            // hoac toast.erros
-            return; // -> khong chay code o duoi
+            return;
         }
         if (!password) {
             toast.error('Password not required');
             return;
         }
-        let res = await postRegister(email,password,username)
-        if(res && res.EC ===0){
+        let res = await postRegister(email, password, username)
+        if (res && res.EC === 0) {
             toast.success(res.EM)
             navigate('/users')
         }
-        if(res && res.EC !==0){
+        if (res && res.EC !== 0) {
             toast.error(res.EM)
         }
     }
@@ -51,7 +50,7 @@ const Register = (props) => {
         <div className="login-container">
             <div className="header">
                 <p>Don't have an account yet? <button className="btn btn-outline-secondary" onClick={() => { navigate('/login') }}>Log in</button></p>
-                <Language/>
+                <Language />
             </div>
             <div className="title col-4 mx-auto">
                 NhatBaoIT

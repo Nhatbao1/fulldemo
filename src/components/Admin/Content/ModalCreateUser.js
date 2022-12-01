@@ -4,10 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc';
 import { toast } from "react-toastify";
 import { postCreateNewUsers } from '../../../service/apiServices';
-// export cai gi import cai do
 const ModalCreateUser = (props) => {
     const { show, setShow, festListUsersWithPaginate, setCurrentPage } = props;
-    // Modal se tu dong chen xuong duoi cung cua body kh chen vao div root --> de vay thi nen 1 class boc cho modal
     const handleClose = () => {
         setShow(false);
         setEmail("");
@@ -26,7 +24,6 @@ const ModalCreateUser = (props) => {
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setPreview(URL.createObjectURL(event.target.files[0]))
-            // URL convert anh duoi dang blob luu tai local
             setImage(event.target.files[0])
         }
     }
@@ -38,7 +35,6 @@ const ModalCreateUser = (props) => {
             );
     }
     const handleSubmitCreateUser = async () => {
-        //validate phia giao dien
         const isValidEmial = validateEmail(email);
         if (!isValidEmial) {
             toast.error(' Email not valid', {
@@ -51,8 +47,7 @@ const ModalCreateUser = (props) => {
                 progress: undefined,
                 theme: "light",
             });
-            // hoac toast.erros
-            return; // -> khong chay code o duoi
+            return;
         }
         if (!password) {
             toast.error('Password not required');
@@ -60,10 +55,7 @@ const ModalCreateUser = (props) => {
         }
 
         let data = await postCreateNewUsers(email, password, username, role, image);
-        // await -> dung de cho axios goi API goi thanh cong se goi lai res
-        // dung moi data vi da customize api tra ve 1 cuc data
         if (data && data.EC === 0) {
-            // res.data.EC tra ve 0 la tao moi thanh cong 
             toast.success(data.EM, {
                 position: "top-center",
                 autoClose: 2000,
@@ -81,7 +73,6 @@ const ModalCreateUser = (props) => {
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM);
-            // tra ve cau thong bao cua backend
         }
 
     }
@@ -106,7 +97,6 @@ const ModalCreateUser = (props) => {
                                 value={email}
                                 onChange={(event) => { setEmail(event.target.value) }}
                             />
-                            {/* de React kiem soat cho cai input mot value */}
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Password</label>
@@ -140,7 +130,6 @@ const ModalCreateUser = (props) => {
                                 type="file"
                                 hidden
                                 id='labelUpload'
-                                // ban chat nhan vao Upload FIle Image la dang thao tac voi input
                                 onChange={(event) => { handleUploadImage(event) }}
                             />
                         </div>

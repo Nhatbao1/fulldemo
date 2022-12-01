@@ -5,10 +5,8 @@ import { FcPlus } from 'react-icons/fc';
 import { toast } from "react-toastify";
 import { putUpdateUser } from '../../../service/apiServices';
 import _ from 'lodash';
-// export cai gi import cai do
 const ModalUpdateUser = (props) => {
-    const { show, setShow, festListUsers, dataUpdate,setDataUpdate,festListUsersWithPaginate,currentPage } = props;
-    // Modal se tu dong chen xuong duoi cung cua body kh chen vao div root --> de vay thi nen 1 class boc cho modal
+    const { show, setShow, festListUsers, dataUpdate, setDataUpdate, festListUsersWithPaginate, currentPage } = props;
     const handleClose = () => {
         setShow(false);
         setEmail("");
@@ -18,8 +16,6 @@ const ModalUpdateUser = (props) => {
         setPreview("");
         setPassword("");
         setDataUpdate({});
-        // resetUpdateData();
-        // tai vi neu click lien tuc vao 1 user -> dataUpdate kh thay doi -> useEffect kh thay doi -> email bi rong -> sau moi lan close thi set lai dataUpdate = ""
     };
     console.log(dataUpdate.image)
     const [email, setEmail] = useState("");
@@ -28,35 +24,26 @@ const ModalUpdateUser = (props) => {
     const [role, setRole] = useState("USER");
     const [image, setImage] = useState("");
     const [preview, setPreview] = useState("");
-    // >>>> Su dung ham useEffect() de updating lai du lieu cua thang cha gui xuong cho du lieu cua con
     useEffect(() => {
-        //  >>> neu truyen mot mang rong thi useEffect se chay ngay sau khi render
-        // >>> useEffect se chay lai khi dataUpdate bi thay doi
-       if(!_.isEmpty(dataUpdate)){
-            // Neu kh rong upDate data
+        if (!_.isEmpty(dataUpdate)) {
             setEmail(dataUpdate.email);
             setImage("");
             setRole(dataUpdate.role);
             setUsername(dataUpdate.username);
-            if(dataUpdate.image){
+            if (dataUpdate.image) {
                 setPreview(`data:image/jpeg;base64,${dataUpdate.image}`);
-                // anh da duoc ma hoa duoi dang base 64
             }
-       }
+        }
     }, [dataUpdate]);
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setPreview(URL.createObjectURL(event.target.files[0]))
-            // URL convert anh duoi dang blob luu tai local
             setImage(event.target.files[0])
         }
     }
     const handleSubmitCreateUser = async () => {
-        let data = await putUpdateUser(dataUpdate.id,username, role, image);
-        // await -> dung de cho axios goi API goi thanh cong se goi lai res
-        // dung moi data vi da customize api tra ve 1 cuc data
+        let data = await putUpdateUser(dataUpdate.id, username, role, image);
         if (data && data.EC === 0) {
-            // res.data.EC tra ve 0 la tao moi thanh cong 
             toast.success(data.EM, {
                 position: "top-center",
                 autoClose: 2000,
@@ -72,7 +59,6 @@ const ModalUpdateUser = (props) => {
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM);
-            // tra ve cau thong bao cua backend
         }
 
     }
@@ -98,7 +84,6 @@ const ModalUpdateUser = (props) => {
                                 disabled
                                 onChange={(event) => { setEmail(event.target.value) }}
                             />
-                            {/* de React kiem soat cho cai input mot value */}
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Password</label>
@@ -133,7 +118,6 @@ const ModalUpdateUser = (props) => {
                                 type="file"
                                 hidden
                                 id='labelUpload'
-                                // ban chat nhan vao Upload FIle Image la dang thao tac voi input
                                 onChange={(event) => { handleUploadImage(event) }}
                             />
                         </div>

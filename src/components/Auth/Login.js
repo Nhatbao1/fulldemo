@@ -25,7 +25,6 @@ const Login = (props) => {
             );
     }
     const handleLogin = async () => {
-        // validate data
         const isValidEmial = validateEmail(email);
         if (!isValidEmial) {
             toast.error(' Email not valid', {
@@ -38,15 +37,13 @@ const Login = (props) => {
                 progress: undefined,
                 theme: "light",
             });
-            // hoac toast.erros
-            return; // -> khong chay code o duoi
+            return;
         }
         if (!password) {
             toast.error('Password not required');
             return;
         }
         setIsLoading(true);
-        // submit login
         let res = await postLogin(email, password)
         if (res && res.EC === 0) {
             toast.success("Login Success", {
@@ -140,4 +137,3 @@ const Login = (props) => {
     );
 }
 export default Login;
-// sang index dinh nghia no 1 route o trong routes kh lq den cac route khac de tranh dung chung du lieu

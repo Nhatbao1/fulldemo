@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-// import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'nprogress/nprogress.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
@@ -32,7 +31,6 @@ const NotFound = () => {
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      {/* <React.StrictMode> */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
@@ -51,7 +49,6 @@ ReactDOM.render(
             </PrivateRoute>
           }>
             <Route index element={<DashBoard />}></Route>
-            {/* mac dinh luc nao vao cung la DashBoard ---> de index de set mac dinh */}
             <Route path="manageuser" element={<ManageUser />}></Route>
             <Route path="managequizz" element={<ManageQuizz />}></Route>
             <Route path="managequestion" element={<ManageQuestion />}></Route>
@@ -61,7 +58,6 @@ ReactDOM.render(
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>
-      {/* </React.StrictMode> */}
     </PersistGate>
   </Provider>,
   document.getElementById('root')

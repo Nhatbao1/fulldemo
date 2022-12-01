@@ -18,7 +18,6 @@ const SideBar = (props) => {
     return (
         <>
             <ProSidebar
-                // image={image ? sidebarBg : false}
                 collapsed={collapsed}
                 toggled={toggled}
                 breakPoint="md"
@@ -79,7 +78,7 @@ const SideBar = (props) => {
                     >
                         <a href="http://github">
                             <FaGithub />
-                            <span style={{ whiteSpace: 'nowrap', overflow: 'hidden',textOverflow: 'ellips' }}>ViewSource</span>
+                            <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellips' }}>ViewSource</span>
                         </a>
                     </div>
                 </SidebarFooter>

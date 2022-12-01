@@ -12,9 +12,8 @@ const App = () => {
         <div className="sidenav-container"></div>
         <div className="app-content">
           <PerfectScrollbar>
-            <Outlet/>
+            <Outlet />
           </PerfectScrollbar>
-          {/* để có nội dung của các component con thì dùng outlet nó sẽ render nội dung component con */}
         </div>
       </div>
 

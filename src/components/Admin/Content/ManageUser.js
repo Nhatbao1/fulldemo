@@ -19,9 +19,7 @@ const ManageUser = (props) => {
     const [pageCount, setPageCount] = useState()
     const [currentPage, setCurrentPage] = useState(1)
     const LIMIT_USER = 4;
-    // tao 1 mang [] >>> chua 2 object{}
     const [listUser, setListUser] = useState([]);
-    // de lay API chen vao thi dong HTML phai duoc render truoc >>> vi vay chung ta can dung ham useEffect
     useEffect(() => {
         festListUsersWithPaginate(1);
     }, []);
@@ -36,11 +34,8 @@ const ManageUser = (props) => {
         if (res.EC === 0) {
             setListUser(res.DT.users)
             setPageCount(res.DT.totalPages)
-            // tai vi res.DT tra ve -> 1 object -> .users de tra ve 1 user
         }
     }
-    // useEffect se duoc chay sau khi ham return da duoc chay truoc
-    // useEffect truyen vao 1 function ca 1 mang rong  === componentDidMount
     const handleClickBtnUpdate = (user) => {
         setShowModalUpdateUser(true);
         setDataUpdate(user);
@@ -69,7 +64,6 @@ const ManageUser = (props) => {
                     </button>
                 </div>
                 <div className="table-users-container">
-                    {/* <TableUser listUser={listUser} handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnView={handleClickBtnView} handleClickBtnDelete={handleClickBtnDelete}/> */}
                     <TableUserPaginate
                         listUser={listUser}
                         handleClickBtnUpdate={handleClickBtnUpdate}
@@ -89,7 +83,6 @@ const ManageUser = (props) => {
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
                 />
-                {/* goi ham festListUsers de render lai ListUsers */}
                 <ModalUpdateUser
                     show={showModalUpdateUser}
                     setShow={setShowModalUpdateUser}
@@ -100,8 +93,6 @@ const ManageUser = (props) => {
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
                 />
-                {/* có thể dùng cách là truyền 1 function xuống thằng con */}
-                {/* co the truyen function resetUpdateData */}
                 <ModalViewUser
                     show={showModalViewUer}
                     setShow={setShowModalViewUser}

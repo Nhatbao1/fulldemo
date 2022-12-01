@@ -47,7 +47,6 @@ const Admin = (props) => {
                 <div className="admin-main">
                     <PerfectScrollbar>
                         <Outlet />
-                        {/* Outlet dung de render cac thang con trong Routes */}
                     </PerfectScrollbar>
                 </div>
             </div>

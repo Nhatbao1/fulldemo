@@ -11,16 +11,13 @@ const DetailQuiz = (props) => {
     const refDiv = useRef([]);
     const params = useParams();
     const quizId = params.id;
-    //su dung params de lay thong tin id truyen vao ham getData
     const location = useLocation();
     const [dataQuiz, setDataQuiz] = useState([]);
     const [show, setShow] = useState(false);
     const [totalQ, seTotalQ] = useState("");
     const [correctQ, setCorrectQ] = useState("");
-   const [isSubmitQuiz, setIsSubmitQuiz] = useState(false);
+    const [isSubmitQuiz, setIsSubmitQuiz] = useState(false);
     const [isShowAnswer, setIsShowAnswer] = useState(false);
-
-    // de la 1 mang tai vi data tra ve la 1 mang gom nhieu object
     const [index, setIndex] = useState(0);
     useEffect(() => {
         detailQuizz();
@@ -30,7 +27,6 @@ const DetailQuiz = (props) => {
         if (res && res.EC === 0) {
             let raw = res.DT;
             let data = _.chain(raw)
-                // group the elements of array based on `color` property
                 .groupBy("id")
                 .map((value, key) => {
                     let answer = [];
@@ -45,13 +41,8 @@ const DetailQuiz = (props) => {
                         answer.push(item.answers);
                     })
                     answer = _.orderBy(answer, ['id'], ['asc']);
-                    // value tra ve 1 mang 3 phan tu
-                    // console.log(">>> key", key)
-                    // console.log(">>> value", value)
                     return { questionId: key, answer, questionDescription, image }
                 })
-                // id,question la ten tu dat
-                // >> key la id dang lap 1,2,3
                 .value();
             setDataQuiz(data)
         }
@@ -95,7 +86,6 @@ const DetailQuiz = (props) => {
                 for (let q of a) {
                     for (let i = 0; i < dataQuizClone.length; i++) {
                         if (+q.questionId === +dataQuizClone[i].questionId) {
-                            //update answer
                             let newAnswers = [];
                             for (let j = 0; j < dataQuizClone[i].answer.length; j++) {
                                 let s = q.systemAnswers.find(item => +item.id === +dataQuizClone[i].answer[j].id)
@@ -143,7 +133,6 @@ const DetailQuiz = (props) => {
         }
         if (question && question.answer.length > 0) {
             let isAnswered = question.answer.find(a => a.isSelected === true);
-            // ham find tra ra phan tu dau tien bang false
             if (isAnswered) {
                 return;
             }
@@ -153,7 +142,6 @@ const DetailQuiz = (props) => {
     const getClassQuestion = (question) => {
         if (question && question.answer.length > 0) {
             let isAnswered = question.answer.find(a => a.isSelected === true);
-            // ham find tra ra phan tu dau tien bang false
             if (isAnswered) {
                 return "question-a selected";
             }
@@ -170,7 +158,7 @@ const DetailQuiz = (props) => {
                 <div className="title">
                     Quiz {quizId} : {location?.state?.quizTitle}
                 </div>
-                <hr/>
+                <hr />
                 <div className="q-content">
                     <Question
                         data={dataQuiz.length > 0 ? dataQuiz[index] : []}

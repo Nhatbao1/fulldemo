@@ -3,13 +3,12 @@ import { GetQuiz, getQuizzByUser } from "../../../../service/apiServices";
 import ModalDeleteQuiz from "./ModalDeleteQuiz";
 import ModalUpdateQuiz from "./ModalUpdateQuiz"
 const TableQuiz = (props) => {
-    const {dataFetch} = props;
+    const { dataFetch } = props;
     const [listQuiz, setListQuiz] = useState({});
     const [showModalUpdateQuiz, setShowModalUpdateQuiz] = useState(false);
     const [dataUpdateQuiz, setDataUpdateQuiz] = useState({});
     const [showModalDeleteQuiz, setShowModalDeleteQuiz] = useState(false);
     const [dataDeleteQuiz, setDataDeleteQuiz] = useState({});
-    // console.log(dataFetch)
     useEffect(() => {
         getAllQuiz();
     }, [dataFetch])

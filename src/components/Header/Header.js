@@ -10,7 +10,6 @@ import { postLogOut } from '../../service/apiServices';
 import Language from './Language';
 import Profile from './Profile';
 import { useTranslation } from 'react-i18next';
-// useNavigate >>> dung chuyen trang
 const Header = () => {
   const navigate = useNavigate();
   const handleLogin = () => {
@@ -25,7 +24,7 @@ const Header = () => {
   const refresh_token = useSelector(state => state.user.account.refresh_token);
   const email = useSelector(state => state.user.account.email);
   const dispatch = useDispatch();
-  const { t,i18n }= useTranslation();
+  const { t, i18n } = useTranslation();
   const handleClickLogOut = async () => {
     let res = await postLogOut(email, refresh_token);
     if (res && res.EC === 0) {
@@ -53,7 +52,7 @@ const Header = () => {
                 :
                 <NavDropdown title="Setting" id="basic-nav-dropdown">
                   <NavDropdown.Item onClick={() => setShowProfile(true)} className="profile">{t('header.profile')}</NavDropdown.Item>
-                  <NavDropdown.Item onClick={() => handleClickLogOut()}className="logout">{t('header.logout')}</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => handleClickLogOut()} className="logout">{t('header.logout')}</NavDropdown.Item>
                 </NavDropdown>
               }
               <Language />

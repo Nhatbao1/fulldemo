@@ -53,7 +53,6 @@ const ManageQuestion = () => {
         }
     }
     const handleAddRemoveQuestion = (type, id) => {
-        // type de khi nao them question or remove va id de dinh danh  cau hoi
         if (type === 'ADD') {
             const newQuestion = {
                 id: uuidv4(),
@@ -69,7 +68,6 @@ const ManageQuestion = () => {
                 ]
             }
             setQuestions([...questions, newQuestion]);
-            ///setQuestions la 1 array
         }
         if (type === 'REMOVE') {
             let questionsClone = _.cloneDeep(questions);
@@ -80,8 +78,6 @@ const ManageQuestion = () => {
         }
     }
     const handleAddRemoveAnswer = (type, answerID, questionID) => {
-
-        // type de khi nao them question or remove va id de dinh danh  cau hoi
         let questionsClone = _.cloneDeep(questions);
         if (type === 'ADD') {
             const newAnswer =
@@ -95,8 +91,6 @@ const ManageQuestion = () => {
                 questionsClone[index].answers.push(newAnswer);
             }
             setQuestions(questionsClone);
-            // setQuestions([...questions, newQuestion]);
-            ///setQuestions la 1 array
         }
         if (type === 'REMOVE') {
             let questionsClone = _.cloneDeep(questions);
@@ -157,14 +151,12 @@ const ManageQuestion = () => {
         setIsPreviewImage(true);
     }
     const handleSubmitQuestionForQuiz = async () => {
-        //validate data
         if (_.isEmpty(selectedQuiz)) {
             toast.error("Please choose a Quiz");
             return;
         }
-        //validate answer 
         let isValidAnswer = true;
-        let indexQuestion = 0, indexAnswer = 0,count=0;
+        let indexQuestion = 0, indexAnswer = 0, count = 0;
         for (let i = 0; i < questions.length; i++) {
             for (let j = 0; j < questions[i].answers.length; j++) {
                 if (!questions[i].answers[j].description) {
@@ -192,18 +184,17 @@ const ManageQuestion = () => {
             }
         }
         if (isValidQuestion === false) {
-            // toast.error(`Not empty Question ${indexQ1 + 1}`);
             initQuestions[indexQ1].isEmptyQuestion = true;
             setQuestions(initQuestions);
         }
         for (let i = 0; i < questions.length; i++) {
             for (let j = 0; j < questions[i].answers.length; j++) {
-                if(questions[i].answers[j].isCorrect === true){
-                    count=count+1;
+                if (questions[i].answers[j].isCorrect === true) {
+                    count = count + 1;
                 }
             }
         }
-        if(count <=0){
+        if (count <= 0) {
             toast.error("Please choose one correct Answer");
         }
         for (const question of questions) {
