@@ -7,7 +7,7 @@ nProgress.configure({
     trickleSpeed: 100,
 })
 const instance = axios.create({
-    baseURL: 'http://localhost:8081/',
+    baseURL: 'http://localhost:8081/', cors: true
     // no se cong them /api/ trong file apiService de chay
 });
 // interceptor se chen chan vao moi lan trinh duyet gui request va sau moi lan sever gui respone
