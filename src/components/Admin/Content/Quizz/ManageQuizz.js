@@ -13,14 +13,13 @@ const ManageQuizz = (props) => {
         { value: 'MEDIUM', label: 'MEDIUM' },
         { value: 'HARD', label: 'HARD' }
     ]
-    const [dataFetch,setDataFetch]=useState();
+    const [dataFetch, setDataFetch] = useState();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [type, setType] = useState('EASY');
     const [image, setImage] = useState(null);
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
-            // URL convert anh duoi dang blob luu tai local
             setImage(event.target.files[0])
         }
     }
@@ -97,7 +96,7 @@ const ManageQuizz = (props) => {
                         </div>
                     </Accordion.Header>
                     <Accordion.Body>
-                        <UpdateQuestion/>
+                        <UpdateQuestion />
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="2">
@@ -107,7 +106,7 @@ const ManageQuizz = (props) => {
                         </div>
                     </Accordion.Header>
                     <Accordion.Body>
-                        <AssignQuiz/>
+                        <AssignQuiz />
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>

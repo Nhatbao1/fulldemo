@@ -23,9 +23,9 @@ const AssignQuiz = () => {
             setListQuiz(newQuiz);
         }
     }
-    const getALlUser = async() =>{
+    const getALlUser = async () => {
         let res = await getAllUsers();
-        if(res && res.EC===0){
+        if (res && res.EC === 0) {
             let newUser = res.DT.map((val, index) => {
                 return {
                     value: val.id,
@@ -35,11 +35,11 @@ const AssignQuiz = () => {
             setListUser(newUser);
         }
     }
-    const handleAssign = async () =>{
-        let res = await postAssignQuiz(selectedQuiz.value,selectedUser.value);
-        if(res && res.EC===0){
+    const handleAssign = async () => {
+        let res = await postAssignQuiz(selectedQuiz.value, selectedUser.value);
+        if (res && res.EC === 0) {
             toast.success(res.EM);
-        }else{
+        } else {
             toast.error(res.EM);
         }
     }
@@ -65,7 +65,7 @@ const AssignQuiz = () => {
             </div>
             <div>
                 <button className='btn btn-warning mt-3'
-                onClick={()=>handleAssign()}
+                    onClick={() => handleAssign()}
                 >Assign</button>
             </div>
         </div>

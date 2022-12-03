@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { getQuizzByUser } from '../../service/apiServices'
 import "./ListQuizz.scss";
 const ListQuizz = (props) => {
-    /// goi API
     const [arrQuizz, setArrQuizz] = useState([]);
     useEffect(() => {
         getQuizzData();
@@ -14,14 +13,13 @@ const ListQuizz = (props) => {
             setArrQuizz(res.DT)
         }
     }
-    ///
     const navigate = useNavigate();
     return (
         <div className='list-quiz-container container'>
             {arrQuizz && arrQuizz.length > 0 &&
                 arrQuizz.map((quiz, index) => {
                     return (
-                        <div key={`${index}-quiz}`} className="card" style={{ width: "18rem"}}>
+                        <div key={`${index}-quiz}`} className="card" style={{ width: "18rem" }}>
                             <div className="card-img-top" ><img src={`data:image/jpeg;base64,${quiz.image}`} alt="Card image cap" /></div>
                             <div className="card-body">
                                 <h5 className="card-title">Quiz {index + 1} </h5>

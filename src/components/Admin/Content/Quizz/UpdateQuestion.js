@@ -44,9 +44,6 @@ const UpdateQuestion = () => {
         if (selectedQuiz && selectedQuiz.value) {
             fetchQuizByQA();
         }
-        //de kiem tra lifecycle cua thang selectedQuiz thay doi nhu nao 
-        //useEffect dung` moi lan selectedQuiz thay doi giao dien se duoc render lai
-        // dung if de kiem tra neu co thang selectedQuiz thi useEffect moi duoc chay
     }, [selectedQuiz])
     const getAllQuiz = async () => {
         let res = await GetQuiz();
@@ -61,7 +58,6 @@ const UpdateQuestion = () => {
         }
     }
     const handleAddRemoveQuestion = (type, id) => {
-        // type de khi nao them question or remove va id de dinh danh  cau hoi
         if (type === 'ADD') {
             const newQuestion = {
                 id: uuidv4(),
@@ -77,7 +73,6 @@ const UpdateQuestion = () => {
                 ]
             }
             setQuestions([...questions, newQuestion]);
-            ///setQuestions la 1 array
         }
         if (type === 'REMOVE') {
             let questionsClone = _.cloneDeep(questions);
@@ -88,8 +83,6 @@ const UpdateQuestion = () => {
         }
     }
     const handleAddRemoveAnswer = (type, answerID, questionID) => {
-
-        // type de khi nao them question or remove va id de dinh danh  cau hoi
         let questionsClone = _.cloneDeep(questions);
         if (type === 'ADD') {
             const newAnswer =
@@ -103,8 +96,6 @@ const UpdateQuestion = () => {
                 questionsClone[index].answers.push(newAnswer);
             }
             setQuestions(questionsClone);
-            // setQuestions([...questions, newQuestion]);
-            ///setQuestions la 1 array
         }
         if (type === 'REMOVE') {
             let questionsClone = _.cloneDeep(questions);
@@ -153,22 +144,21 @@ const UpdateQuestion = () => {
         }
         setQuestions(questionsClone);
     }
-    const urltoFile = (url, filename, mimeType)=>{
+    const urltoFile = (url, filename, mimeType) => {
         return (fetch(url)
-            .then(function(res){return res.arrayBuffer();})
-            .then(function(buf){return new File([buf], filename,{type:mimeType});})
+            .then(function (res) { return res.arrayBuffer(); })
+            .then(function (buf) { return new File([buf], filename, { type: mimeType }); })
         );
     }
     const fetchQuizByQA = async () => {
         let res = await getQuizByQA(selectedQuiz.value);
         if (res && res.EC === 0) {
-            //convert base 64 -> file object
             let newQA = [];
-            for(let i=0;i<res.DT.qa.length;i++){
+            for (let i = 0; i < res.DT.qa.length; i++) {
                 let q = res.DT.qa[i];
-                if(q.imageFile){
+                if (q.imageFile) {
                     q.imageName = `Question - ${q.id}.png`;
-                     q.imageFile=await urltoFile(`data:image/png;base64,${q.imageFile}`, `Question - ${q.id}.png`,'image/png')
+                    q.imageFile = await urltoFile(`data:image/png;base64,${q.imageFile}`, `Question - ${q.id}.png`, 'image/png')
                 }
                 newQA.push(q);
             }
@@ -228,7 +218,6 @@ const UpdateQuestion = () => {
             }
         }
         if (isValidQuestion === false) {
-            // toast.error(`Not empty Question ${indexQ1 + 1}`);
             initQuestions[indexQ1].isEmptyQuestion = true;
             setQuestions(initQuestions);
         }
@@ -242,26 +231,22 @@ const UpdateQuestion = () => {
         if (count <= 0) {
             toast.error("Please choose one correct Answer");
         }
-        // let res = await postUpsertQA();
         let questionsClone = _.cloneDeep(questions);
-        for(let i=0; i<questionsClone.length; i++){
-            if(questionsClone[i].imageFile){
-                questionsClone[i].imageFile=await toBase64(questionsClone[i].imageFile);
+        for (let i = 0; i < questionsClone.length; i++) {
+            if (questionsClone[i].imageFile) {
+                questionsClone[i].imageFile = await toBase64(questionsClone[i].imageFile);
             }
         }
         let res = await postUpsertQA({
-            quizId:selectedQuiz.value,
-            questions:questionsClone
+            quizId: selectedQuiz.value,
+            questions: questionsClone
         });
-        if(res && res.DT === 0){
+        if (res && res.DT === 0) {
             toast.success(res.EM);
             fetchQuizByQA();
-            //goi lai ham de state cua react duoc cap nhat khi them moi cau hoi hoac cau tra loi
-            // boi dang tao mot id ngau nhien => goi lai de lay id o Database ve
-
         }
     }
-  
+
     return (
         <div className="questions-container">
             <div className="add-new-questions">

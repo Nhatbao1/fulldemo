@@ -61,7 +61,6 @@ const TableUserPaginate = (props) => {
                 activeClassName="active"
                 renderOnZeroPageCount={null}
                 forcePage={currentPage - 1}
-            // tai vi no tinh trang bat dau tu so 0
             />
         </>
     )

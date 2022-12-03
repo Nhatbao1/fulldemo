@@ -6,16 +6,11 @@ export const doLogin = (res) => {
     return {
         type: FETCH_USER_LOGIN_SUCCESS,
         payload: res
-        // dang chuyen 1 action co ten la FETCH_USER_LOGIN_SUCCESS
-        // luu pay load bang res => muon co data -> res.DT
     }
 }
 export const doLogout = () => {
     return {
         type: USER_LOGOUT_SUCCESS,
-        // payload: res
-        // dang chuyen 1 action co ten la FETCH_USER_LOGIN_SUCCESS
-        // luu pay load bang res => muon co data -> res.DT
     }
 }
 export const doChange = (res) => {

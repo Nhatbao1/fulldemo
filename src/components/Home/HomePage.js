@@ -6,9 +6,7 @@ const HomePage = () => {
     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
     const account = useSelector(state => state.user.account)
     const navigate = useNavigate()
-    // trong useSelector cho state cua redux
-    // ten state duoc dinh nghia trong rootreducer => tiep theo vao file da dc dinh nghia trong root lay cac gia tri can dinh nghia
-    const { t,i18n }= useTranslation();
+    const { t, i18n } = useTranslation();
     return (
         <div className="homepage-container">
             <video autoPlay muted loop>
@@ -17,7 +15,7 @@ const HomePage = () => {
             <div className="homepage-content">
                 <div className="title">
                     {t('homepage.title')}
-                    </div>
+                </div>
                 <div className="para">
                     {t('homepage.para')}
                 </div>
@@ -26,7 +24,7 @@ const HomePage = () => {
                         <button className="btn_1" onClick={() => { navigate("/users") }}>{t('homepage.btn_1')}
                         </button>
                         :
-                        <button className="btn_2" onClick={()=>{ navigate("/login") }}>{t('homepage.btn_2')}
+                        <button className="btn_2" onClick={() => { navigate("/login") }}>{t('homepage.btn_2')}
                         </button>
                     }
                 </div>

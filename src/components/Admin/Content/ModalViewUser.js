@@ -5,10 +5,8 @@ import { FcPlus } from 'react-icons/fc';
 import { toast } from "react-toastify";
 import { putUpdateUser } from '../../../service/apiServices';
 import _ from 'lodash';
-// export cai gi import cai do
 const ModalViewUser = (props) => {
     const { show, setShow, dataView } = props;
-    // Modal se tu dong chen xuong duoi cung cua body kh chen vao div root --> de vay thi nen 1 class boc cho modal
     const handleClose = () => {
         setShow(false);
         setEmail("");
@@ -25,19 +23,15 @@ const ModalViewUser = (props) => {
     const [image, setImage] = useState("");
     const [preview, setPreview] = useState("");
     useEffect(() => {
-        //  >>> neu truyen mot mang rong thi useEffect se chay ngay sau khi render
-        // >>> useEffect se chay lai khi dataUpdate bi thay doi
-       if(!_.isEmpty(dataView)){
-            // Neu kh rong upDate data
+        if (!_.isEmpty(dataView)) {
             setEmail(dataView.email);
             setImage("");
             setRole(dataView.role);
             setUsername(dataView.username);
-            if(dataView.image){
+            if (dataView.image) {
                 setPreview(`data:image/jpeg;base64,${dataView.image}`);
-                // anh da duoc ma hoa duoi dang base 64
             }
-       }
+        }
     }, [dataView]);
     return (
         <>
@@ -60,7 +54,6 @@ const ModalViewUser = (props) => {
                                 value={email}
                                 onChange={(event) => { setEmail(event.target.value) }}
                             />
-                            {/* de React kiem soat cho cai input mot value */}
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Password</label>
@@ -95,7 +88,6 @@ const ModalViewUser = (props) => {
                                 type="file"
                                 hidden
                                 id='labelUpload'
-                            // ban chat nhan vao Upload FIle Image la dang thao tac voi input
                             />
                         </div>
                         <div className='col-md-12 img-preview'>

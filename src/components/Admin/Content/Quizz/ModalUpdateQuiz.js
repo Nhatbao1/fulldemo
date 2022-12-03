@@ -7,7 +7,7 @@ import { UpdateQuiz } from '../../../../service/apiServices';
 import _ from 'lodash';
 import { set } from 'nprogress';
 const ModalUpdateQuiz = (props) => {
-    const { show, setShow, dataUpdateQuiz,setDataUpdateQuiz } = props;
+    const { show, setShow, dataUpdateQuiz, setDataUpdateQuiz } = props;
     const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -25,27 +25,25 @@ const ModalUpdateQuiz = (props) => {
         setDataUpdateQuiz({});
     }
     useEffect(() => {
-        if(_.isEmpty(dataUpdateQuiz)){
+        if (_.isEmpty(dataUpdateQuiz)) {
             setId(dataUpdateQuiz.id);
             setDescription(dataUpdateQuiz.description);
             setDifficulty(dataUpdateQuiz.difficulty);
             setName(dataUpdateQuiz.name);
-            if(dataUpdateQuiz.image){
+            if (dataUpdateQuiz.image) {
                 setPreview(`data:image/jpeg;base64,${dataUpdateQuiz.image}`);
-                // anh da duoc ma hoa duoi dang base 64
             }
         }
     }, [dataUpdateQuiz])
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
-            // URL convert anh duoi dang blob luu tai local
             setPreview(URL.createObjectURL(event.target.files[0]))
             setImage(event.target.files[0])
         }
     }
     const handleSubmitCreateUser = async () => {
-        let res = await UpdateQuiz(name,description,difficulty,dataUpdateQuiz.id);
-        if(res && res.EC ===0){
+        let res = await UpdateQuiz(name, description, difficulty, dataUpdateQuiz.id);
+        if (res && res.EC === 0) {
             toast.success(res.EM);
             handleClose();
         }
@@ -75,7 +73,6 @@ const ModalUpdateQuiz = (props) => {
                                 value={dataUpdateQuiz.id}
                                 onChange={(event) => { setId(event.target.value) }}
                             />
-                            {/* de React kiem soat cho cai input mot value */}
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Name</label>
@@ -84,7 +81,6 @@ const ModalUpdateQuiz = (props) => {
                                 value={name}
                                 onChange={(event) => { setName(event.target.value) }}
                             />
-                            {/* de React kiem soat cho cai input mot value */}
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Description</label>
@@ -111,7 +107,6 @@ const ModalUpdateQuiz = (props) => {
                                 type="file"
                                 hidden
                                 id='labelUpload'
-                                // ban chat nhan vao Upload FIle Image la dang thao tac voi input
                                 onChange={(event) => { handleUploadImage(event) }}
                             />
                         </div>

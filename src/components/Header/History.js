@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getHistory } from "../../service/apiServices";
-import moment from 'moment'
+import moment from 'moment';
 const History = () => {
     const [listHisroty, setListHistory] = useState([]);
     useEffect(() => {
@@ -10,16 +10,16 @@ const History = () => {
         let res = await getHistory();
         if (res && res.EC === 0) {
             let newData = res?.DT?.data?.map(item => {
-                return{
+                return {
                     total_correct: item.total_correct,
                     total_questions: item.total_questions,
-                    name:item?.quizHistory?.name??"",
-                    id:item.id,
-                    date:moment(item.createAt).utc().format('DD/MM/YY hh:mm:ss A'),
+                    name: item?.quizHistory?.name ?? "",
+                    id: item.id,
+                    date: moment(item.createAt).utc().format('DD/MM/YY hh:mm:ss A'),
                 }
             })
-            if(newData.length >7){
-                newData = newData.slice(newData.length-7,newData.lengh);
+            if (newData.length > 7) {
+                newData = newData.slice(newData.length - 7, newData.lengh);
             }
             setListHistory(newData);
         }
